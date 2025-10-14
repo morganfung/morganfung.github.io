@@ -1,1 +1,113 @@
-Hi Sabrina!!!!! I LOVE YOU
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Morgan Fung</title>
+  <meta name="description" content="Morgan Fung — developer & student in the Bay Area." />
+  <link rel="icon" href="assets/profile.jpg" type="image/jpeg">
+
+  <!-- Fonts (exact set you requested) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@300;600&family=Libre+Baskerville:wght@400;700&family=Libre+Caslon+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" type="text/css" href="style.css" />
+
+  <!-- (Optional) OG tags -->
+  <meta property="og:title" content="Morgan Fung">
+  <meta property="og:description" content="Developer & student in the Bay Area.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/profile.jpg">
+  <meta property="og:url" content="https://www.morganfung.com">
+</head>
+
+<body>
+  <main class="wrap">
+    <div class="topbar">
+      <h1>Morgan Fung</h1>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 2v2M12 20v2M22 12h-2M4 12H2M18.364 18.364l-1.414-1.414M7.05 7.05 5.636 5.636M5.636 18.364 7.05 16.95M16.95 7.05l1.414-1.414" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <p>
+      B.A. Computer Science, Applied Mathematics @
+      <a href="https://cdss.berkeley.edu/">University of California, Berkeley</a>
+      <span class="aside">(Go Bears!).</span>
+    </p>
+
+    <p>
+      2025 | SWE Intern at <a href="https://www.niagarawater.com/">Niagara Bottling</a>
+      building internal AI tools.
+    </p>
+
+    <p>
+      2024 | ML Intern at <a href="https://www.sce.com//">Southern California Edison</a>
+      training models on work-order data.
+    </p>
+
+    <p>
+      Currently organizing <a href="https://calhacks.io/">CalHacks</a>.
+    </p>
+
+    <p>Love to travel, see my friends often, and explore new restaurants!</p>
+
+    <section class="contact">
+      <p><u>Open to full-time, new-grad Software Engineering roles.</u></p>
+      <p>Email: morganfung[AT]berkeley.edu</a></p>
+      <p>Instagram: <a href="https://www.instagram.com/morgan.fung/">@morgan.fung</a></p>
+      <p>LinkedIn: <a href="https://linkedin.com/in/morgan-fung">@morgan.fung</a></p>
+    </section>
+
+    <footer>
+      <small><span id="year"></span></small>
+    </footer>
+  </main>
+
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Theme toggle with persistence
+    (function(){
+      var storageKey = 'theme-preference';
+      var htmlEl = document.documentElement;
+      var toggleBtn = document.getElementById('theme-toggle');
+
+      function applyTheme(theme){
+        htmlEl.setAttribute('data-theme', theme);
+        if (toggleBtn){
+          toggleBtn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+          toggleBtn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+      }
+
+      function getPreferredTheme(){
+        var stored = null;
+        try { stored = localStorage.getItem(storageKey); } catch(e){}
+        if (stored === 'light' || stored === 'dark') return stored;
+        return 'dark';
+      }
+
+      var current = getPreferredTheme();
+      applyTheme(current);
+
+      if (toggleBtn){
+        toggleBtn.addEventListener('click', function(){
+          var next = (htmlEl.getAttribute('data-theme') === 'dark') ? 'light' : 'dark';
+          applyTheme(next);
+          try { localStorage.setItem(storageKey, next); } catch(e){}
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

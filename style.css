@@ -1,0 +1,132 @@
+/* Minimal serif look using your fonts */
+:root{
+  --fg: #111;
+  --bg: #fff;
+  --muted: #4b5563;
+  --link: #1a56db;
+  --link-visited: #5a3dd5;
+  --btn-bg: #f3f4f6;
+  --btn-fg: #111;
+  --btn-border: #e5e7eb;
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Libre Caslon Text", Georgia, serif;  /* body */
+  line-height: 1.7;
+  font-size: 21px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.wrap{
+  max-width: 900px;
+  margin: 100px auto 72px;
+  padding: 0 32px;
+}
+
+.topbar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Headline in Libre Baskerville, with Bitter available for accents */
+h1{
+  font-family: "Libre Baskerville", "Bitter", Georgia, serif;
+  font-size: large;
+  font-weight: 700;
+  font-size: clamp(30px, 7vw, 40px);
+  margin: 0 0 18px 0;
+  letter-spacing: 0.2px;
+}
+
+p{ margin: 22px 0; }
+
+.aside{ color: var(--muted); }
+.aside{ display: block; }
+
+a{
+  color: var(--fg);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+a:visited{ color: var(--fg); }
+a:hover{ text-decoration-thickness: 2px; }
+
+/* Keep social/contact links styled as links */
+.contact a{ color: var(--link); }
+.contact a:visited{ color: var(--link-visited); }
+
+.contact{
+  margin-top: 100px;
+  font-size: 0.85em;
+}
+
+footer{ margin-top: 36px; }
+footer small{ color: var(--muted); font-size: 0.9em; }
+
+/* Optional dark mode */
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0b0d10;
+    --fg: #e5e7eb;
+    --muted: #98a2b3;
+    --link: #8ab4ff;
+    --link-visited: #b6a6ff;
+    --btn-bg: #111419;
+    --btn-fg: #e5e7eb;
+    --btn-border: #1f2937;
+  }
+}
+
+/* Explicit theme override via [data-theme] */
+[data-theme="light"]{
+  --fg: #111;
+  --bg: #fff;
+  --muted: #4b5563;
+  --link: #1a56db;
+  --link-visited: #5a3dd5;
+  --btn-bg: #f3f4f6;
+  --btn-fg: #111;
+  --btn-border: #e5e7eb;
+}
+
+[data-theme="dark"]{
+  --bg: #0b0d10;
+  --fg: #e5e7eb;
+  --muted: #98a2b3;
+  --link: #8ab4ff;
+  --link-visited: #b6a6ff;
+  --btn-bg: #111419;
+  --btn-fg: #e5e7eb;
+  --btn-border: #1f2937;
+}
+
+.theme-toggle{
+  appearance: none;
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border-radius: 999px;
+  padding: 6px 10px;
+  line-height: 1;
+  font-size: 18px;
+  cursor: pointer;
+}
+.theme-toggle:hover{ filter: brightness(0.97); }
+.theme-toggle:active{ transform: translateY(1px); }
+
+/* SVG icons for theme toggle */
+.theme-toggle svg{ width: 20px; height: 20px; display: block; }
+.theme-toggle .icon-sun{ display: none; }
+
+/* When dark theme active, show sun (to switch to light); default shows moon */
+[data-theme="dark"] .theme-toggle .icon-sun{ display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon{ display: none; }

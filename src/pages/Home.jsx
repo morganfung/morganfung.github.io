@@ -14,12 +14,21 @@ export default function Home() {
         <div className="exp-list">
           <div className="exp-item">
             <div>
+              <span className="exp-role">Software Engineer</span>
+              <span className="exp-company">
+                {" "}at <a href="https://runpulse.com/">Pulse</a>
+              </span>
+            </div>
+            <span className="exp-date">Jun 2026–Now</span>
+          </div>
+          <div className="exp-item">
+            <div>
               <span className="exp-role">Full Stack Engineer</span>
               <span className="exp-company">
                 {" "}at <a href="https://www.uncountable.com/">Uncountable</a>
               </span>
             </div>
-            <span className="exp-date">Jan 2026–Now</span>
+            <span className="exp-date">Jan–Jun 2026</span>
           </div>
           <div className="exp-item">
             <div>

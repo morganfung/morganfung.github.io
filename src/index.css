@@ -335,6 +335,149 @@ nav a.active {
 .animate-in:nth-child(5) { animation-delay: 0.2s; }
 .animate-in:nth-child(6) { animation-delay: 0.25s; }
 
+/* Analytics */
+.analytics-you {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.analytics-you-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.analytics-you-place {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.stat-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.stat {
+  flex: 1 1 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.stat-num {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.stat-num-sm {
+  font-size: 17px;
+  letter-spacing: -0.01em;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.geo-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.geo-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px dashed var(--border);
+}
+
+.geo-item:last-child {
+  border-bottom: 1px dashed var(--border);
+}
+
+.geo-label {
+  flex: 0 0 auto;
+  min-width: 0;
+  max-width: 45%;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.geo-sub {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.geo-track {
+  flex: 1 1 auto;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.geo-bar {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+.geo-count {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+  min-width: 28px;
+  text-align: right;
+}
+
+.analytics-refresh {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--muted);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.analytics-refresh:hover:not(:disabled) {
+  color: var(--fg);
+  border-color: var(--muted);
+}
+
+.analytics-refresh:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.analytics-note {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 /* Empty state */
 .empty-state {
   color: var(--muted);

@@ -1,0 +1,18 @@
+name = "morganfung-analytics"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+# Run `npx wrangler d1 create morganfung-analytics` and paste the printed
+# database_id below.
+[[d1_databases]]
+binding = "DB"
+database_name = "morganfung-analytics"
+database_id = "85180cff-7cd0-4923-9368-d34e7c77c621"
+
+[vars]
+# Origins allowed to call this Worker (comma-separated). Add localhost for dev.
+ALLOWED_ORIGINS = "https://morganfung.com,https://www.morganfung.com,http://localhost:5173"
+
+# IP_SALT is a SECRET, not a var. Set it once with:
+#   npx wrangler secret put IP_SALT
+# (enter any long random string — it salts the IP hash so raw IPs are unrecoverable)

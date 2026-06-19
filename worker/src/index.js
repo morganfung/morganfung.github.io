@@ -71,20 +71,19 @@ export default {
       // Only POST from a real browser writes to the database. GET is read-only.
       const record = request.method === "POST" && !isBot;
 
-      let ipHash = null;
-      if (record) {
-        const ip = request.headers.get("CF-Connecting-IP") || "0.0.0.0";
-        ipHash = await hashIp(ip, env.IP_SALT || "please-set-IP_SALT");
-      }
+      // Identify the visitor on every request (GET and POST) so "last visitor"
+      // can always exclude them. Only POST writes a row; GET stays read-only.
+      const ip = request.headers.get("CF-Connecting-IP") || "0.0.0.0";
+      const ipHash = await hashIp(ip, env.IP_SALT || "please-set-IP_SALT");
 
-      // "Last visitor before you": newest row excluding the current visitor.
+      // "Last visitor before you": newest row that isn't the current visitor.
       // Read this BEFORE the upsert so it reflects the prior state.
       const lastRow = await env.DB.prepare(
         `SELECT city, region, country, last_seen FROM visitors
-         ${ipHash ? "WHERE ip_hash != ?" : ""}
+         WHERE ip_hash != ?
          ORDER BY last_seen DESC LIMIT 1`,
       )
-        .bind(...(ipHash ? [ipHash] : []))
+        .bind(ipHash)
         .first();
 
       if (record) {

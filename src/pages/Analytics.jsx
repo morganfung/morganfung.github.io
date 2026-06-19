@@ -1,15 +1,6 @@
 import { useEffect, useState } from "react";
 import { loadAnalytics, refreshAnalytics, isConfigured } from "../lib/analytics";
 
-// ISO 3166 alpha-2 code -> flag emoji (regional indicator symbols).
-function flag(cc) {
-  if (!cc || cc.length !== 2) return "";
-  const base = 0x1f1e6;
-  return String.fromCodePoint(
-    ...[...cc.toUpperCase()].map((c) => base + c.charCodeAt(0) - 65),
-  );
-}
-
 const regionNames =
   typeof Intl !== "undefined" && Intl.DisplayNames
     ? new Intl.DisplayNames(["en"], { type: "region" })
@@ -40,7 +31,7 @@ function place({ city, region, country }) {
   if (city && city !== "Unknown") parts.push(city);
   if (region && region !== city) parts.push(region);
   const head = parts.join(", ");
-  const tail = country ? `${flag(country)} ${countryName(country)}`.trim() : "";
+  const tail = country ? countryName(country) : "";
   return [head, tail].filter(Boolean).join(" · ") || "Somewhere";
 }
 
@@ -129,7 +120,7 @@ export default function Analytics() {
                 {data.topCities.map((c) => (
                   <div className="meta-row" key={`${c.city}-${c.country}`}>
                     <span className="meta-key">
-                      {flag(c.country)} {c.city}
+                      {c.city}
                       <span className="meta-sub">{countryName(c.country)}</span>
                     </span>
                     <span className="meta-val mono">{c.n}</span>
@@ -145,9 +136,7 @@ export default function Analytics() {
               <div className="meta-list">
                 {data.topCountries.map((c) => (
                   <div className="meta-row" key={c.country}>
-                    <span className="meta-key">
-                      {flag(c.country)} {countryName(c.country)}
-                    </span>
+                    <span className="meta-key">{countryName(c.country)}</span>
                     <span className="meta-val mono">{c.n}</span>
                   </div>
                 ))}

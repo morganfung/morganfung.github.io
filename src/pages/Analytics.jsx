@@ -44,26 +44,6 @@ function place({ city, region, country }) {
   return [head, tail].filter(Boolean).join(" · ") || "Somewhere";
 }
 
-function GeoList({ items }) {
-  const max = Math.max(...items.map((i) => i.n), 1);
-  return (
-    <div className="geo-list">
-      {items.map((i) => (
-        <div className="geo-item" key={i.key}>
-          <span className="geo-label">
-            {i.label}
-            {i.sub ? <span className="geo-sub"> {i.sub}</span> : null}
-          </span>
-          <span className="geo-track">
-            <span className="geo-bar" style={{ width: `${(i.n / max) * 100}%` }} />
-          </span>
-          <span className="geo-count">{i.n}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 export default function Analytics() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
@@ -116,32 +96,27 @@ export default function Analytics() {
         </section>
       ) : (
         <>
-          {data.you && (
-            <section className="section animate-in">
-              <div className="analytics-you">
-                <span className="analytics-you-label">You’re visiting from</span>
-                <span className="analytics-you-place">{place(data.you)}</span>
-              </div>
-            </section>
-          )}
-
           <section className="section animate-in">
-            <div className="stat-grid">
-              <div className="stat">
-                <span className="stat-num">
+            <div className="meta-list">
+              <div className="meta-row">
+                <span className="meta-key">Unique visitors</span>
+                <span className="meta-val mono">
                   {data.uniqueVisitors.toLocaleString()}
                 </span>
-                <span className="stat-label">unique visitors</span>
               </div>
               {data.lastVisitor && (
-                <div className="stat">
-                  <span className="stat-num stat-num-sm">
+                <div className="meta-row">
+                  <span className="meta-key">Last visitor</span>
+                  <span className="meta-val">
                     {place(data.lastVisitor)}
-                  </span>
-                  <span className="stat-label">
-                    last visitor before you
                     {data.lastVisitor.at ? ` · ${timeAgo(data.lastVisitor.at)}` : ""}
                   </span>
+                </div>
+              )}
+              {data.you && (
+                <div className="meta-row">
+                  <span className="meta-key">You’re visiting from</span>
+                  <span className="meta-val">{place(data.you)}</span>
                 </div>
               )}
             </div>
@@ -150,41 +125,47 @@ export default function Analytics() {
           {data.topCities?.length > 0 && (
             <section className="section animate-in">
               <h2 className="section-title">Top cities</h2>
-              <GeoList
-                items={data.topCities.map((c) => ({
-                  key: `${c.city}-${c.country}`,
-                  label: `${flag(c.country)} ${c.city}`,
-                  sub: countryName(c.country),
-                  n: c.n,
-                }))}
-              />
+              <div className="meta-list">
+                {data.topCities.map((c) => (
+                  <div className="meta-row" key={`${c.city}-${c.country}`}>
+                    <span className="meta-key">
+                      {flag(c.country)} {c.city}
+                      <span className="meta-sub">{countryName(c.country)}</span>
+                    </span>
+                    <span className="meta-val mono">{c.n}</span>
+                  </div>
+                ))}
+              </div>
             </section>
           )}
 
           {data.topCountries?.length > 0 && (
             <section className="section animate-in">
               <h2 className="section-title">Top countries</h2>
-              <GeoList
-                items={data.topCountries.map((c) => ({
-                  key: c.country,
-                  label: `${flag(c.country)} ${countryName(c.country)}`,
-                  n: c.n,
-                }))}
-              />
+              <div className="meta-list">
+                {data.topCountries.map((c) => (
+                  <div className="meta-row" key={c.country}>
+                    <span className="meta-key">
+                      {flag(c.country)} {countryName(c.country)}
+                    </span>
+                    <span className="meta-val mono">{c.n}</span>
+                  </div>
+                ))}
+              </div>
             </section>
           )}
 
           <section className="section animate-in">
             <button
-              className="analytics-refresh"
+              className="text-link"
               onClick={onRefresh}
               disabled={refreshing}
             >
               {refreshing ? "Refreshing…" : "Refresh"}
             </button>
             <p className="analytics-note">
-              Geolocation is approximate (city-level) and comes from Cloudflare’s
-              edge. IP addresses are hashed and never stored.
+              Geolocation is approximate and comes from Cloudflare’s edge. IP
+              addresses are hashed and never stored.
             </p>
           </section>
         </>
